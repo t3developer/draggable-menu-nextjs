@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { blMelody, inter } from "./fonts";
+import NavBar from "./components/NavBar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,9 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${blMelody.variable} antialiased`}
+        className={`${inter.variable} ${blMelody.variable}`}
       >
-        {children}
+        <header className="flex-none">
+          <NavBar />
+        </header>
+        <main className="flex-1">{children}</main>
       </body>
     </html>
   );
