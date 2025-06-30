@@ -3,11 +3,11 @@ import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from 
 import React, { useState } from 'react';
 import FormSortablePage, { FormNavPage, FormNavPageType } from './FormSortablePage';
 import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
-import FormNavAddPage, { FormNavAddPageDisplay } from './FormNavAddPage';
+import FormNavAddPage from './FormNavAddPage';
 
 const FormNav = () => {
   const [contextPageId, setContextPageId] = useState<string | null>(null);
-  
+
   const [pages, setPages] = useState<FormNavPage[]>([
     { id: '1', name: 'Info', type: FormNavPageType.INFO, active: true },
     { id: '2', name: 'Details', type: FormNavPageType.DEFAULT, active: false },
@@ -15,16 +15,21 @@ const FormNav = () => {
     { id: '4', name: 'Ending', type: FormNavPageType.END, active: false },
   ]);
   
+  // set active to the page clicked and removing the active status from previous
   const onPageClick = (page: FormNavPage) => {
     const updated = pages.map(p => ({...p, active: (p.id === page.id)}));
     setPages(updated);
   };
 
+  // adding distance so that sensor starts working after button being dragged for 5px
+  // otherwise it won't let us catch onClick (used for other purpose) on the button
   const sensors = useSensors(useSensor(PointerSensor, {
     activationConstraint: {
       distance: 5
     }
    }));
+  
+   // method to sort the pages array after the dragging event
   const handleDragEnd = (event: any) => {
     const {active, over} = event;
 
@@ -60,11 +65,11 @@ const FormNav = () => {
             </div>
           ))}
 
-          <FormNavAddPage display={FormNavAddPageDisplay.BUTTON} />
+          <FormNavAddPage />
         </nav>
       </SortableContext>
     </DndContext>
   );
-}
+};
 
-export default FormNav
+export default FormNav;

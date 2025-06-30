@@ -65,23 +65,25 @@ const FormSortablePage = ({ page, index, totalPages, isContextOpen, onContextOpe
   } = useSortable({id: page.id});
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Translate.toString(transform),
     transition,
   };
 
   return (
     <div 
       ref={ref}
-      className='relative flex items-center font-medium'
+      className='relative flex items-center font-medium text-gray-900'
       onContextMenu={handleContextMenu}>
+
       <button
         ref={setNodeRef}
         style={style}
         onClick={(e) => handlePageClick(e, page)}
         className={`
           ${!page.active && 'hover:bg-gray-200'}
-          ${page.active && 'border-[0.5px] border-gray-300 bg-white shadow-sm shadow-gray-300/50 hover:ring-offset-1 hover:ring-1 hover:ring-blue-200 hover:ring-offset-blue-400'}
-          flex items-center group gap-2 px-2.5 py-1.5 rounded-lg bg-gray-100 cursor-pointer text-gray-600 z-10`}
+          ${page.active && 'border-[0.5px] text-gray-900 border-gray-300 bg-white shadow-sm shadow-gray-300/50'}
+          flex items-center group gap-2 px-2.5 py-1.5 rounded-lg bg-gray-100 cursor-pointer text-gray-600 z-10
+          focus:ring-offset-1 focus:ring-1 focus:ring-blue-200 focus:ring-offset-blue-400`}
         {...listeners}
         {...attributes}>
 
@@ -89,19 +91,18 @@ const FormSortablePage = ({ page, index, totalPages, isContextOpen, onContextOpe
         {page.type === FormNavPageType.DEFAULT && <span><MdOutlineStickyNote2 size={16} className={`${page.active && 'text-amber-500'}`} /></span>}
         {page.type === FormNavPageType.END && <span><FaRegCircleCheck size={16} className={`${page.active && 'text-amber-500'}`} /></span>}
         <span>{page.name}</span>
-        {page.active && <BsThreeDotsVertical size={16} className='text-gray-400' />}
+        {page.active && <BsThreeDotsVertical size={16} className='text-gray-400' onClick={handleContextMenu} />}
 
       </button>
 
       <FormNavGap hover={index !== totalPages}/>
 
       {isContextOpen && (
-        <div className="animate-fadeIn">
-          <FormNavContextMenu page={page} />
-        </div>
+        <FormNavContextMenu page={page} />
       )}
+   
     </div>
   );
-}
+};
 
-export default FormSortablePage
+export default FormSortablePage;

@@ -1,5 +1,5 @@
-import React from 'react'
-import FormNav from './FormNav'
+import React from 'react';
+import FormNav from './FormNav';
 
 const FormBuilder = () => {
   return (
@@ -10,6 +10,6 @@ const FormBuilder = () => {
         </div>
     </div>
   )
-}
+};
 
-export default FormBuilder
+export default FormBuilder;

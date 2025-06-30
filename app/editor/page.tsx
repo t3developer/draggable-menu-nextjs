@@ -1,6 +1,6 @@
-import React from 'react'
-import EditorAddOns from './_components/EditorAddOns'
-import FormBuilder from './_components/FormBuilder'
+import React from 'react';
+import EditorAddOns from './_components/EditorAddOns';
+import FormBuilder from './_components/FormBuilder';
 
 const EditorPage = () => {
   return (
@@ -13,6 +13,6 @@ const EditorPage = () => {
       </div>
     </div>
   )
-}
+};
 
-export default EditorPage
+export default EditorPage;

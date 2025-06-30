@@ -17,6 +17,10 @@
   body {
     @apply h-svh p-5 antialiased flex flex-col gap-5;
   }
+  h3 {
+    @apply text-base;
+    font-family: var(--font-blMelody);
+  }
 }
 
 body {
