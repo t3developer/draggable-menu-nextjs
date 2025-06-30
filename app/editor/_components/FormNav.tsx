@@ -3,6 +3,7 @@ import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from 
 import React, { useState } from 'react';
 import FormSortablePage, { FormNavPage } from './FormSortablePage';
 import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
+import FormNavAddPage, { FormNavAddPageDisplay } from './FormNavAddPage';
 
 const FormNav = () => {
   const [contextPageId, setContextPageId] = useState<string | null>(null);
@@ -31,7 +32,9 @@ const FormNav = () => {
     <DndContext sensors={sensors} onDragEnd={handleDragEnd} collisionDetection={closestCenter}>
       <SortableContext items={pages} strategy={horizontalListSortingStrategy}>
         <nav className="inline-flex items-center w-auto relative z-10">
+
           <div className="absolute top-1/2 left-4 right-4 border-t border-dashed border-gray-400 z-0"></div>
+          
           {pages.map((page, index) => (
             <div key={page.id} className='flex items-center'>
               <FormSortablePage
@@ -45,7 +48,8 @@ const FormNav = () => {
               </FormSortablePage>
             </div>
           ))}
-          <button className='px-4 py-2 border rounded cursor-pointer bg-white relative z-10'>Add page</button>
+
+          <FormNavAddPage display={FormNavAddPageDisplay.BUTTON} />
         </nav>
       </SortableContext>
     </DndContext>
