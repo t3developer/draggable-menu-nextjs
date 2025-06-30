@@ -1,20 +1,30 @@
 'use client';
 import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import React, { useState } from 'react';
-import FormSortablePage, { FormNavPage } from './FormSortablePage';
+import FormSortablePage, { FormNavPage, FormNavPageType } from './FormSortablePage';
 import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import FormNavAddPage, { FormNavAddPageDisplay } from './FormNavAddPage';
 
 const FormNav = () => {
   const [contextPageId, setContextPageId] = useState<string | null>(null);
+  
   const [pages, setPages] = useState<FormNavPage[]>([
-    { id: '1', name: 'Info' },
-    { id: '2', name: 'Details' },
-    { id: '3', name: 'Other' },
-    { id: '4', name: 'Ending' },
+    { id: '1', name: 'Info', type: FormNavPageType.INFO, active: true },
+    { id: '2', name: 'Details', type: FormNavPageType.DEFAULT, active: false },
+    { id: '3', name: 'Other', type: FormNavPageType.DEFAULT, active: false },
+    { id: '4', name: 'Ending', type: FormNavPageType.END, active: false },
   ]);
-  const sensors = useSensors(useSensor(PointerSensor));
+  
+  const onPageClick = (page: FormNavPage) => {
+    const updated = pages.map(p => ({...p, active: (p.id === page.id)}));
+    setPages(updated);
+  };
 
+  const sensors = useSensors(useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 5
+    }
+   }));
   const handleDragEnd = (event: any) => {
     const {active, over} = event;
 
@@ -31,9 +41,9 @@ const FormNav = () => {
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd} collisionDetection={closestCenter}>
       <SortableContext items={pages} strategy={horizontalListSortingStrategy}>
-        <nav className="inline-flex items-center w-auto relative z-10">
+        <nav className="inline-flex items-center w-auto relative z-10 text-sm">
 
-          <div className="absolute top-1/2 left-4 right-4 border-t border-dashed border-gray-400 z-0"></div>
+          <div className="absolute top-1/2 left-4 right-4 border-1 border-dashed border-gray-300 z-0"></div>
           
           {pages.map((page, index) => (
             <div key={page.id} className='flex items-center'>
@@ -44,7 +54,8 @@ const FormNav = () => {
                 totalPages={pages.length}
                 isContextOpen={contextPageId === page.id}
                 closeAll={() => setContextPageId(null)}
-                onContextOpen={(pageId) => setContextPageId(pageId)}>
+                onContextOpen={(pageId) => setContextPageId(pageId)}
+                onPageClick={onPageClick}>
               </FormSortablePage>
             </div>
           ))}

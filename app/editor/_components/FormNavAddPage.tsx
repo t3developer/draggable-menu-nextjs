@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
+import { FaPlus } from "react-icons/fa6";
 
 export enum FormNavAddPageDisplay {
   BUTTON = 'button',
@@ -35,9 +36,10 @@ const FormNavAddPage = ({ display }: FormNavAddPageProps) => {
       {display === FormNavAddPageDisplay.BUTTON && (
         <button
           onClick={toggleMenu}
-          className="px-4 py-2 border rounded cursor-pointer bg-white relative z-10"
+          className="flex items-center gap-1.5 px-2.5 py-1.5 border-[0.5px] rounded-lg cursor-pointer border-gray-300 bg-white relative z-10 shadow-sm shadow-gray-300/50 hover:ring-offset-1 hover:ring-1 hover:ring-blue-200 hover:ring-offset-blue-400"
         >
-          + Add page
+          <span><FaPlus /></span>
+          <span>Add page</span>
         </button>
       )}
       
