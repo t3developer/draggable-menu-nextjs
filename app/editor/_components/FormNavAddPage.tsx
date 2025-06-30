@@ -1,11 +1,11 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { FaPlus } from "react-icons/fa6";
 import FormNavAddPageMenu from './FormNavAddPageMenu';
 import { useAddPageMenu } from '../_hooks/useAddPageMenu';
 
 const FormNavAddPage = () => {
-  const { ref, isOpen, closeMenu, toggleMenu } = useAddPageMenu();
+  const { ref, isOpen, toggleMenu } = useAddPageMenu();
 
   return (
     <div

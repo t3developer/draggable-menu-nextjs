@@ -10,6 +10,8 @@ type FormNavContextMenuProps = {
 };
 
 const FormNavContextMenu = ({ page }: FormNavContextMenuProps) => {
+  console.log(page);
+
   return (
     <div className="
       absolute bottom-full mb-1 left-0 rounded-xl border-[0.5px] w-[240px] border-gray-300 bg-white 

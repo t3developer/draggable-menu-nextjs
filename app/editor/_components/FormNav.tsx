@@ -1,5 +1,5 @@
 'use client';
-import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import React, { useState } from 'react';
 import FormSortablePage, { FormNavPage, FormNavPageType } from './FormSortablePage';
 import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
@@ -30,14 +30,14 @@ const FormNav = () => {
    }));
   
    // method to sort the pages array after the dragging event
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const {active, over} = event;
 
-    if (active.id !== over.id) {
+    if (over && active.id !== over.id) {
       const { active, over } = event;
       if (active.id !== over?.id) {
         const oldIndex = pages.findIndex((p) => p.id === active.id);
-        const newIndex = pages.findIndex((p) => p.id === over.id);
+        const newIndex = pages.findIndex((p) => p.id === over?.id);
         setPages(arrayMove(pages, oldIndex, newIndex));
       }
     }
